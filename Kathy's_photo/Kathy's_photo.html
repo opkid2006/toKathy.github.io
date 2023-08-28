@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>photo</title>
+    <link rel = "stylesheet" type = "text/css" href = "Kathy's-photo.css"/>
+</head>
+<body id = "body">
+    <div class = "head">
+        HELLO
+    </div>
+
+    <div id = "layout" class = "layout">
+
+        <!-- 
+        side 
+        -->
+        <div id = "side" class = "side side-text">
+            <div class = "side-text">Your pictures in</div>
+            <div class = "side-text">Dong'ao</div>
+            <!-- 玩水 -->
+            <div
+                id = "botton" 
+                class = "sideBotton outBotton"
+                onmouseover = "overBotton(this)"
+                onmouseout = "outBotton(this)"
+                onclick = "show1()"
+            >玩水</div>
+            <!-- 上課 -->
+            <div
+                id = "botton" 
+                class = "sideBotton outBotton"
+                onmouseover = "overBotton(this)"
+                onmouseout = "outBotton(this)"
+                onclick = "show2()"
+            >上課</div>
+            <!-- 當老師 -->
+            <div
+                id = "botton" 
+                class = "sideBotton outBotton"
+                onmouseover = "overBotton(this)"
+                onmouseout = "outBotton(this)"
+                onclick = "show3()"
+            >當老師</div>
+            <!-- 音控 -->
+            <div
+                id = "botton" 
+                class = "sideBotton outBotton"
+                onmouseover = "overBotton(this)"
+                onmouseout = "outBotton(this)"
+                onclick = "show4()"
+            >音控</div>
+            <!-- 英雄 -->
+            <div
+                id = "botton" 
+                class = "sideBotton outBotton"
+                onmouseover = "overBotton(this)"
+                onmouseout = "outBotton(this)"
+                onclick = "show5()"
+            >英雄XD</div>
+        </div>
+
+        <!-- 
+        left 
+        -->
+        <div id = "left" class = "left">
+
+            <div id = "border" class = "border">
+            <img 
+                id = "picL" 
+                src="water1.JPG" 
+                class = "picL"
+            />
+            </div>
+            
+            <div id = "hint" class = "pullLeft">←往左拉</div>
+        </div>
+
+        <!-- 
+        mid 
+        -->
+        <div 
+            id = "mid"
+            class = "mid"
+            onmouseover="over()"
+            onmouseout="out()"
+        ><div
+            class = "handle out"
+        ></div>
+        </div>
+
+        <!-- 
+        right 
+        -->
+        <div id = "right" class = "right">
+            <div id = "border" class = "border">
+                <img 
+                    id = "picR" 
+                    src="water2.JPG" 
+                    class = "picR"
+                />
+            </div>
+        </div>
+    </div>
+    <div style = "width: 100%; flex: 1; height: auto; background-color: rgb(122, 122, 122); padding: 0px;">
+        <div id = "sign" class = "sign">
+            made by Sean
+        </div>
+    </div>
+    
+    
+    
+    <script>
+    /* 前置 */
+        let layout = document.querySelector("#layout");
+        let left = document.querySelector("#left");
+        let mid = document.querySelector("#mid");
+        let right = document.querySelector("#right");
+        let hint = document.querySelector("#hint");
+        let body = document.querySelector("body");
+        let side = document.querySelector("#side");
+        let picL = document.querySelector("#picL");
+        let picR = document.querySelector("#picR");
+        let border = document.querySelector("#border");
+
+        border.style.width = 831 + "px";
+        border.style.width = left.offsetWidth - 65 + "px";
+        picR.style.display = 'none';
+
+    /* keep running */
+        function resize(){
+        // picL
+            right.style.width = body.offsetWidth - (200 + right.offsetWidth) + "px";
+            if (left.offsetWidth <= 300) {
+                picL.style.display = 'none'; // 如果寬度小於等於 300px，隱藏圖片
+            } 
+            else {
+                picL.style.display = 'block'; // 如果寬度大於 300px，顯示圖片
+            }
+        // picR
+            if (right.offsetWidth <= 300) {
+                picR.style.display = 'none'; // 如果寬度小於等於 300px，隱藏圖片
+            } 
+            else {
+                picR.style.display = 'block'; // 如果寬度大於 300px，顯示圖片
+            }
+        };
+        window.addEventListener("resize",resize);
+
+    /* dragging */
+        function move(e){
+            
+        // left resize 
+            right.style.width = body.offsetWidth - (e.clientX + 5) + "px";
+            mid.style.left = (e.clientX - 205)+"px";
+            left.style.width = (e.clientX - 205)+"px";
+            border.style.width = "100%";            
+            
+        // hint
+            if (right.offsetWidth <= 300) {
+                hint.innerHTML = "←往左拉";
+                hint.className = "pullLeft";
+                hint.style.display = 'block';
+                border.style.width = left.offsetWidth - 65 + "px";
+            }
+            else if (left.offsetWidth <= 300) {
+                hint.innerHTML = "往右拉→";
+                hint.className = "pullRight";
+                hint.style.display = 'block';
+            }
+            else {
+                hint.innerHTML = "";
+                hint.style.display = 'none';
+            }
+
+        // picL
+            if (left.offsetWidth <= 300) {
+                picL.style.display = 'none'; // 如果寬度小於等於 300px，隱藏圖片
+            } 
+            else {
+                picL.style.display = 'block'; // 如果寬度大於 300px，顯示圖片
+            }
+        // picR
+            if (right.offsetWidth <= 300) {
+                picR.style.display = 'none'; // 如果寬度小於等於 300px，隱藏圖片
+            } 
+            else {
+                picR.style.display = 'block'; // 如果寬度大於 300px，顯示圖片
+            }
+        };/* dragging end */
+        
+    /* mid drag & drop */
+        //calling "move()"
+        function drag(){
+            document.addEventListener("mousemove",move);
+        };
+        function drop(){
+            document.removeEventListener("mousemove",move); 
+        };
+        mid.addEventListener("mousedown",drag);
+        mid.addEventListener("mouseup",drop);
+
+    /* handle 黑線 */
+        let handle = document.querySelector(".handle");
+        over = function(){
+            handle.className = "handle  over";
+        };
+        out = function(){
+            handle.className = "handle  out";
+        };
+        
+    /* botton form */
+        overBotton = function(botton){
+            botton.className = "sideBotton  overBotton";
+        };
+
+        outBotton = function(botton){
+            botton.className = "sideBotton  outBotton";
+        };
+        
+    /* button function */
+        let height = (border.offsetHeight) * 0.9;
+        // console.log(height);
+
+        show1 = function(){
+        // left
+            picL.src = "water1.JPG";
+        // right
+            picR.src = "water2.JPG";
+        };
+        show2 = function(){
+        // left
+            picL.src = "inclass1.JPG";
+        // right
+            picR.src = "inclass2.JPG";
+        };
+        show3 = function(){
+        // left
+            picL.src = "teacher.JPG";
+        // right
+            picR.src = "teacher2.JPG";
+        };
+        show4 = function(){
+        // left
+            picL.src = "sound engineering.JPG";
+        // right
+            picR.src = "sound engineering (2).JPG";
+        };
+        show5 = function(){
+        // left
+            picL.src = "hero1.JPG";
+        // right
+            picR.src = "hero2.JPG";
+        };
+    </script>
+</body>
+</html>
